@@ -9,11 +9,21 @@ class NotesController extends Controller
 {
     public function index()
     {    
+        $data_pending = [];
+        $data_done = [];
+        $data_dump = [];
         $response = Http::get('http://hworks.my.id/api/notes');
         if ($response->successful()) {
             $data = $response->json();
             // dd($data);
-            return view('index', compact('data'));
+            foreach ($data as $item) { 
+                if ($item['status'] == "Pending") {
+                    $data_pending[] = $item; 
+                } elseif ($item['status'] == "Done") {
+                    $data_done[] = $item;
+                }
+            }
+            return view('index', compact('data_pending','data_done'));
         } else {
             return response()->json(['error' => 'Failed to retrieve data from API'], $response->status());
         }
