@@ -3,6 +3,7 @@
 @section('content')
     <div>
         <h1>Data dari API</h1>
+        <a href="/create"><button class="btn btn-primary">Add Note</button></a>
         <ul id="data-list"></ul>
         <table id="data-notes" class="table">
             <tr>

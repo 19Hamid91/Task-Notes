@@ -22,9 +22,18 @@ class NotesController extends Controller
     {
         return view('create');
     }
-    public function store()
+    public function store(Request $request)
     {
-        return redirect('index');
+        $data['title'] = $request->input('title');
+        $data['due'] = $request->input('due');
+        $data['description'] = $request->input('description');
+        $data['status'] = $request->input('status');
+        $response = Http::post('http://hworks.my.id/api/notes', $data);
+        if ($response->successful()) {
+            return redirect('index');
+        } else {
+            return response()->json(['error' => 'Failed to retrieve data from API'], $response->status());
+        }
     }
     public function edit()
     {
