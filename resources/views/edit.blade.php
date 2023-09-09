@@ -4,35 +4,39 @@
     <div>
         <h1>Edit Note</h1>
 
-        <form id="form" action="" method="POST" style="display: inline-block;">
+        <form id="form" action="/update/{{ $data['id'] }}" method="POST" style="display: inline-block;">
             @method('PUT')
+            @csrf
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" value="">
+                <input type="text" name="title" class="form-control" id="title" value="{{ $data['title'] }}">
             </div>
 
             <div class="form-group">
                 <label for="due">Due</label>
-                <input type="text" class="form-control" id="due" value="">
+                <input type="text" name="due" class="form-control" id="due" value="{{ $data['due'] }}">
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description"></textarea>
+                <textarea class="form-control" name="description" id="description">{{ $data['description'] }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" id="status" value="">
+                <select name="status" id="status">
+                    <option value="Pending" @if ($data['status'] == 'Pending') selected @endif>Pending</option>
+                    <option value="Done"@if ($data['status'] == 'Done') selected @endif>Done</option>
+                </select>
             </div>
 
-            <button type="button" class="btn btn-primary" id="update-button">Update</button>
+            <button type="submit" class="btn btn-primary" id="update-button">Update</button>
             <a href="/index" class="btn btn-secondary">Back</a>
         </form>
     </div>
-@section('script')
-    
 @endsection
+{{-- @section('script')
+    
     <script>
         $(document).ready(function () {
             var currentUrl = window.location.href;
@@ -79,4 +83,4 @@
             }
         });
     </script>
-@endsection
+@endsection --}}

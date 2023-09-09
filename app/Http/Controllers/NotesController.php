@@ -35,12 +35,30 @@ class NotesController extends Controller
             return response()->json(['error' => 'Failed to retrieve data from API'], $response->status());
         }
     }
-    public function edit()
+    public function edit($id)
     {
-        return view('edit');
+        $response = Http::get('http://hworks.my.id/api/notes/'.$id);
+        if ($response->successful()) {
+            $data = $response->json();
+            // dd($data);
+            return view('edit', compact('data'));
+        } else {
+            return response()->json(['error' => 'Failed to retrieve data from API'], $response->status());
+        }
     }
-    public function update()
+    public function update(Request $request, $id)
     {
+        $data['title'] = $request->input('title');
+        $data['due'] = $request->input('due');
+        $data['description'] = $request->input('description');
+        $data['status'] = $request->input('status');
+        // dd($data);
+        $response = Http::put('http://hworks.my.id/api/notes/'.$id, $data);
+        if ($response->successful()) {
+            return redirect('index');
+        } else {
+            return response()->json(['error' => 'Failed to retrieve data from API'], $response->status());
+        }
         return redirect('index');
     }
     public function show($id)
