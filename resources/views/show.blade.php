@@ -7,30 +7,30 @@
         <form>
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" value="" readonly>
+                <input type="text" class="form-control" id="title" value="{{ $data['title'] }}" readonly>
             </div>
 
             <div class="form-group">
                 <label for="due">Due</label>
-                <input type="text" class="form-control" id="due" value="" readonly>
+                <input type="text" class="form-control" id="due" value="{{ $data['due'] }}" readonly>
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" readonly></textarea>
+                <textarea class="form-control" id="description" readonly>{{ $data['description'] }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" id="status" value="" readonly>
+                <input type="text" class="form-control" id="status" value="{{ $data['status'] }}" readonly>
             </div>
 
             <a href="/index" class="btn btn-secondary">Back</a>
         </form>
     </div>
-@section('script')
-    
 @endsection
+{{-- @section('script')
+    
     <script>
         $(document).ready(function () {
             var currentUrl = window.location.href;
@@ -55,4 +55,4 @@
             });
         });
     </script>
-@endsection
+@endsection --}}

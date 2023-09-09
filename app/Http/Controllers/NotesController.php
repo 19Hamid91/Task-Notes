@@ -63,11 +63,26 @@ class NotesController extends Controller
     }
     public function show($id)
     {
+        $response = Http::get('http://hworks.my.id/api/notes/'.$id);
+        if ($response->successful()) {
+            $data = $response->json();
+            // dd($data);
+            return view('show', compact('data'));
+        } else {
+            return response()->json(['error' => 'Failed to retrieve data from API'], $response->status());
+        }
         return view('show');
     }
-    public function destroy()
+    public function destroy($id)
     {
-        return redirect('index');
+        $response = Http::delete('http://hworks.my.id/api/notes/'. $id);
+
+        // Memeriksa respons dari API
+        if ($response->successful()) {
+            return redirect('index')->with('success', 'Data produk berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Gagal menghapus data. Silakan coba lagi.');
+        }
     }
     
 }

@@ -22,7 +22,11 @@
                     <td>
                         <a href="/show/{{ $item['id'] }}" class="btn btn-primary show-button">Show</a>
                         <a href="/edit/{{ $item['id'] }}"class="btn btn-warning edit-button">Edit</a>
-                        <button class="btn btn-danger delete-button" data-id="' + item.id + '">Hapus</button>
+                        <form action="/delete/{{$item['id'] }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
